@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Checkout – Circuitron{% endblock %}
+{% block content %}
+<nav class="navbar">
+    <a class="nav-brand" href="{{ url_for('home') }}">⚡ Circuitron</a>
+</nav>
+<div class="checkout-container">
+    <div class="checkout-items">
+        <h2>Order Summary</h2>
+        {% for item in items %}
+        <div class="checkout-row">
+            <span>{{ item.product.name }} × {{ item.qty }}</span>
+            <span>₹{{ "%.2f"|format(item.subtotal) }}</span>
+        </div>
+        {% endfor %}
+        <div class="checkout-total">Total: ₹{{ "%.2f"|format(total) }}</div>
+    </div>
+    <div class="checkout-form">
+        <h2>Delivery Details</h2>
+        <form method="POST">
+            <div class="form-group">
+                <label>Delivery Address</label>
+                <textarea name="address" rows="3" required placeholder="Full address..."></textarea>
+            </div>
+            <div class="form-group">
+                <label>Payment Method</label>
+                <select name="payment">
+                    <option value="cod">Cash on Delivery</option>
+                    <option value="online">Online Payment</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full">Place Order</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

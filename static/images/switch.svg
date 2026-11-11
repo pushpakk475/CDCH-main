@@ -1,0 +1,6 @@
+<svg width="150" height="200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="150" height="200" fill="white" stroke="#343a40" stroke-width="3" rx="10"/>
+  <rect x="40" y="70" width="70" height="60" fill="#343a40" rx="5"/>
+  <rect x="60" y="85" width="30" height="30" fill="white" rx="3"/>
+  <text x="75" y="170" font-family="Arial" font-size="14" fill="#333" text-anchor="middle">Switch</text>
+</svg>

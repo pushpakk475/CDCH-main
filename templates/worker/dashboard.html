@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %}Worker Dashboard – Circuitron{% endblock %}
+{% block content %}
+<nav class="navbar">
+    <div class="nav-brand">🔧 Worker Panel</div>
+    <div class="nav-links">
+        <a href="tel:9441539599" class="contact-call">📞 9441539599</a>
+        <span>Hello, {{ session.worker_name }}</span>
+        <a href="{{ url_for('worker_logout') }}" class="btn-nav">Logout</a>
+    </div>
+</nav>
+<div class="list-container">
+    <h2>Available Jobs</h2>
+    {% if pending %}
+    <div class="jobs-grid">
+        {% for job in pending %}
+        <div class="job-card pending">
+            <div class="job-header">
+                <h3>{{ job.service_name }}</h3>
+                <span class="status-badge status-pending">New</span>
+            </div>
+            <p><strong>Customer:</strong> {{ job.customer_name }}</p>
+            <p><strong>Date:</strong> {{ job.date }} | {{ job.time_slot }}</p>
+            <p><strong>Address:</strong> {{ job.address }}</p>
+            <a href="{{ url_for('accept_job', bid=job.id) }}" class="btn btn-primary">Accept Job</a>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p style="color:#666">No new jobs available right now.</p>
+    {% endif %}
+
+    <h2 style="margin-top:40px">My Jobs</h2>
+    {% if jobs %}
+    <table class="data-table">
+        <thead><tr><th>#</th><th>Service</th><th>Customer</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody>
+        {% for job in jobs %}
+        <tr>
+            <td>#{{ job.id }}</td>
+            <td>{{ job.service_name }}</td>
+            <td>{{ job.customer_name }}</td>
+            <td>{{ job.date }}</td>
+            <td><span class="status-badge status-{{ job.status }}">{{ job.status }}</span></td>
+            <td>
+                {% if job.status == 'accepted' %}
+                <a href="{{ url_for('complete_job', bid=job.id) }}" class="btn btn-sm btn-primary">Mark Complete</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p style="color:#666">No jobs assigned yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

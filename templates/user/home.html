@@ -1,0 +1,363 @@
+{% extends 'base.html' %}
+{% block title %}Circuitron – Digital Commerce Hub{% endblock %}
+{% block content %}
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <a href="{{ url_for('home') }}" class="nav-brand">
+        <span class="brand-text">CIRCUITRON</span>
+        <span class="brand-sub">DIGITAL COMMERCE HUB</span>
+    </a>
+    <div class="nav-links">
+        <a href="{{ url_for('home') }}" class="nav-link active">Home</a>
+        <a href="#about" class="nav-link">About Us</a>
+        <a href="{{ url_for('products') }}" class="nav-link">Products ▾</a>
+        <a href="{{ url_for('services') }}" class="nav-link">Services</a>
+        {% if session.user_id %}
+            <a href="{{ url_for('cart') }}" class="nav-link cart-link">🛒</a>
+            <a href="{{ url_for('logout') }}" class="btn-nav">Logout</a>
+        {% else %}
+            <a href="{{ url_for('login') }}" class="nav-link">Login</a>
+            <a href="{{ url_for('register') }}" class="btn-nav">Register</a>
+        {% endif %}
+    </div>
+</nav>
+
+<!-- HERO SLIDER -->
+<section class="hero-slider">
+
+
+    <!-- SLIDE 1 -->
+    <div class="slide active">
+        <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1400&q=80')"></div>
+        <div class="slide-overlay" style="background:linear-gradient(105deg,rgba(10,5,30,0.75) 30%,rgba(10,5,30,0.2) 65%,transparent 100%)"></div>
+        <div class="slide-content">
+            <div class="slide-tag">⚡ Premium Electrical Items</div>
+            <h1 class="slide-title"><span>Transform</span> Ordinary<br>Into <strong>Unique.</strong></h1>
+            <p>Premium electrical items for modern homes and businesses</p>
+            <div class="slide-btns">
+                <a href="{{ url_for('products') }}" class="btn btn-primary">Shop Items →</a>
+                <a href="{{ url_for('services') }}" class="btn btn-outline-white">Book Electrician</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 2 -->
+    <div class="slide">
+        <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=1400&q=80')"></div>
+        <div class="slide-overlay" style="background:linear-gradient(105deg,rgba(5,5,40,0.75) 30%,rgba(5,5,40,0.2) 65%,transparent 100%)"></div>
+        <div class="slide-content">
+            <div class="slide-tag">💡 LED Lighting Solutions</div>
+            <h1 class="slide-title"><span>Illuminate</span> Every<br>Corner <strong>Brilliantly.</strong></h1>
+            <p>Energy-saving LED lights for homes, offices & industries</p>
+            <div class="slide-btns">
+                <a href="{{ url_for('products', category=3) }}" class="btn btn-primary">Shop LED Lights →</a>
+                <a href="{{ url_for('services') }}" class="btn btn-outline-white">Light Fitting Service</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 3 -->
+    <div class="slide">
+        <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1400&q=80')"></div>
+        <div class="slide-overlay" style="background:linear-gradient(105deg,rgba(5,20,10,0.75) 30%,rgba(5,20,10,0.2) 65%,transparent 100%)"></div>
+        <div class="slide-content">
+            <div class="slide-tag">🌀 Premium Ceiling Fans</div>
+            <h1 class="slide-title"><span>Cool Down</span> in<br><strong>Style & Comfort.</strong></h1>
+            <p>High-performance fans with energy-efficient motors</p>
+            <div class="slide-btns">
+                <a href="{{ url_for('products', category=4) }}" class="btn btn-primary">Shop Fans →</a>
+                <a href="{{ url_for('services') }}" class="btn btn-outline-white">Fan Installation</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 4 -->
+    <div class="slide">
+        <div class="slide-bg" style="background-image:url('/static/images/slide4-bg.svg'); background-size:cover; opacity:1 !important;"></div>
+        <div class="slide-overlay" style="background:linear-gradient(105deg,rgba(2,12,27,0.70) 30%,rgba(2,12,27,0.15) 65%,transparent 100%)"></div>
+        <div class="slide-content">
+            <div class="slide-tag">⚙️ Circuit Protection</div>
+            <h1 class="slide-title"><span>Protect</span> Your<br>Home <strong>Safely.</strong></h1>
+            <p>ISI-certified MCBs and RCCBs for complete electrical safety</p>
+            <div class="slide-btns">
+                <a href="{{ url_for('products', category=5) }}" class="btn btn-primary">Shop Breakers →</a>
+                <a href="{{ url_for('services') }}" class="btn btn-outline-white">Wiring Service</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 5 -->
+    <div class="slide">
+        <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=1400&q=80')"></div>
+        <div class="slide-overlay" style="background:linear-gradient(105deg,rgba(15,5,25,0.75) 30%,rgba(15,5,25,0.2) 65%,transparent 100%)"></div>
+        <div class="slide-content">
+            <div class="slide-tag">🔧 On-Demand Electricians</div>
+            <h1 class="slide-title"><span>Expert Help</span><br><strong>At Your Doorstep.</strong></h1>
+            <p>Certified electricians available 7 days a week, same-day service</p>
+            <div class="slide-btns">
+                <a href="{{ url_for('services') }}" class="btn btn-primary">Book Now →</a>
+                <a href="{{ url_for('worker_register') }}" class="btn btn-outline-white">Join as Electrician</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="slider-dots" id="sliderDots">
+        <span class="dot active" onclick="goToSlide(0)"></span>
+        <span class="dot" onclick="goToSlide(1)"></span>
+        <span class="dot" onclick="goToSlide(2)"></span>
+        <span class="dot" onclick="goToSlide(3)"></span>
+        <span class="dot" onclick="goToSlide(4)"></span>
+    </div>
+    <button class="slider-arrow left" onclick="changeSlide(-1)">&#8249;</button>
+    <button class="slider-arrow right" onclick="changeSlide(1)">&#8250;</button>
+</section>
+
+
+
+<!-- PRODUCT STRIP CAROUSEL -->
+<section class="product-strip">
+    <div class="strip-track" id="stripTrack">
+        {% for p in products %}
+        <a href="{{ url_for('product_detail', pid=p.id) }}" class="strip-item">
+            <div class="strip-img">
+                <img src="{{ get_img(p.image) }}" alt="{{ p.name }}">
+            </div>
+            <span class="strip-name">{{ p.name[:22] }}{% if p.name|length > 22 %}…{% endif %}</span>
+        </a>
+        {% endfor %}
+    </div>
+    <button class="strip-arrow strip-prev" onclick="scrollStrip(-1)">&#8249;</button>
+    <button class="strip-arrow strip-next" onclick="scrollStrip(1)">&#8250;</button>
+</section>
+
+<!-- STATS BAR -->
+<section class="stats-bar">
+    <div class="stat-item"><span class="stat-n">500+</span><span class="stat-l">Products</span></div>
+    <div class="stat-divider"></div>
+    <div class="stat-item"><span class="stat-n">20+</span><span class="stat-l">Electricians</span></div>
+    <div class="stat-divider"></div>
+    <div class="stat-item"><span class="stat-n">100K+</span><span class="stat-l">Customers</span></div>
+    <div class="stat-divider"></div>
+    <div class="stat-item"><span class="stat-n">4.9★</span><span class="stat-l">Rating</span></div>
+    <div class="stat-divider"></div>
+    <div class="stat-item"><span class="stat-n">9AM–8PM</span><span class="stat-l">Mon – Sat</span></div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="section" id="about">
+    <div class="section-header">
+        <div class="section-tag">Our Range</div>
+        <h2 class="section-title">Shop by Category</h2>
+        <p class="section-sub">Explore our complete range of certified electrical products</p>
+    </div>
+    <div class="categories-grid">
+        {% set cat_images = {
+            'Switches & Sockets': '/static/images/cat-switches.svg',
+            'Wires & Cables':     '/static/images/cat-wires.svg',
+            'LED Lights':         '/static/images/cat-led.svg',
+            'Fans':               '/static/images/cat-fans.svg',
+            'MCB & Isolators':    '/static/images/cat-mcb.svg'
+        } %}
+        {% for cat in categories %}
+        <a href="{{ url_for('products', category=cat.id) }}" class="category-card">
+            <div class="cat-img-wrap">
+                <img src="{{ cat_images.get(cat.name, '/static/images/cat-switches.svg') }}" alt="{{ cat.name }}">
+            </div>
+            <span>{{ cat.name }}</span>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- FEATURED PRODUCTS with urgency -->
+<section class="section section-alt">
+    <div class="section-header">
+        <div class="section-tag">🔥 Best Sellers</div>
+        <h2 class="section-title">Top Selling Products</h2>
+        <p class="section-sub">Trusted by 100,000+ homes and businesses across India</p>
+    </div>
+    <div class="products-grid">
+        {% for p in products[:8] %}
+        <div class="product-card">
+            <!-- Stock badge -->
+            <div class="stock-badge {% if p.stock > 50 %}in-stock-badge{% elif p.stock > 10 %}low-stock-badge{% else %}last-badge{% endif %}">
+                {% if p.stock > 50 %}In Stock{% elif p.stock > 10 %}Only {{ p.stock }} left{% else %}Last few!{% endif %}
+            </div>
+            <div class="product-img">
+                {% if p.image and p.image != 'no-image' %}
+                <img src="{{ get_img(p.image) }}" alt="{{ p.name }}">
+                {% else %}
+                <div class="no-img"><span class="no-img-icon">📦</span><span>{{ p.name }}</span></div>
+                {% endif %}
+                <div class="product-overlay">
+                    <a href="{{ url_for('product_detail', pid=p.id) }}" class="btn btn-sm btn-primary">Quick View</a>
+                </div>
+            </div>
+            <div class="product-info">
+                <span class="badge">{{ p.cat_name }}</span>
+                <h3>{{ p.name }}</h3>
+                <div class="product-rating">⭐⭐⭐⭐⭐ <span>({{ (p.id * 17 + 43) % 200 + 50 }})</span></div>
+                <div class="product-footer">
+                    <div>
+                        <p class="price">₹{{ "%.2f"|format(p.price) }}</p>
+                        <p class="mrp">MRP ₹{{ "%.2f"|format(p.price * 1.2) }}</p>
+                    </div>
+                    <a href="{{ url_for('add_to_cart', pid=p.id) }}" class="btn-cart" title="Add to Cart">🛒</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div style="text-align:center;margin-top:48px">
+        <a href="{{ url_for('products') }}" class="btn btn-primary" style="padding:16px 40px;font-size:1rem">View All Products →</a>
+    </div>
+</section>
+
+<!-- PROMO BANNER -->
+<section class="promo-banner">
+    <div class="promo-content">
+        <div class="promo-text">
+            <h2>⚡ Need an Electrician Today?</h2>
+            <p>Book a certified professional in under 2 minutes. Available 7 days a week.</p>
+        </div>
+        <a href="{{ url_for('services') }}" class="btn btn-primary promo-btn">Book Now — It's Fast →</a>
+    </div>
+</section>
+
+
+
+<!-- REVIEWS SECTION -->
+<section class="section section-alt">
+    <div class="section-header">
+        <div class="section-tag">Reviews</div>
+        <h2 class="section-title">What Our Customers Say</h2>
+    </div>
+    <div class="reviews-grid">
+        <div class="review-card">
+            <div class="review-stars">⭐⭐⭐⭐⭐</div>
+            <p>"Ordered electrical items at 11 AM, got delivered by 5 PM. Quality is excellent, exactly as described."</p>
+            <div class="reviewer"><div class="reviewer-avatar">R</div><div><strong>Rahul Sharma</strong><span>Hyderabad</span></div></div>
+        </div>
+        <div class="review-card">
+            <div class="review-stars">⭐⭐⭐⭐⭐</div>
+            <p>"Booked an electrician for fan installation. He arrived on time, did a clean job. Highly recommend!"</p>
+            <div class="reviewer"><div class="reviewer-avatar">P</div><div><strong>Priya Reddy</strong><span>Secunderabad</span></div></div>
+        </div>
+        <div class="review-card">
+            <div class="review-stars">⭐⭐⭐⭐⭐</div>
+            <p>"Best prices for quality wires. Bought 100 meters for my new house. Saved a lot compared to local shops."</p>
+            <div class="reviewer"><div class="reviewer-avatar">S</div><div><strong>Suresh Kumar</strong><span>Warangal</span></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- SERVICES SECTION -->
+<section class="section">
+    <div class="section-header">
+        <div class="section-tag">Services</div>
+        <h2 class="section-title">Professional Electricians, On Demand</h2>
+        <p class="section-sub">Book a certified electrician in under 2 minutes. Available Mon–Sat, 9AM–8PM</p>
+    </div>
+    <div class="services-grid">
+        {% for s in service_cats %}
+        <div class="service-card-big">
+            <div class="service-icon">{{ s.icon }}</div>
+            <h3>{{ s.name }}</h3>
+            <p>{{ s.description }}</p>
+            <a href="{{ url_for('book_service', sid=s.id) }}" class="btn btn-primary btn-sm">Book Now</a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-col">
+        <div class="footer-brand">⚡ CIRCUITRON</div>
+        <p class="footer-desc">India's trusted digital platform for premium electrical products and certified electrician services.</p>
+        <div class="footer-social">
+            <a href="#" class="social-btn">f</a>
+            <a href="#" class="social-btn">in</a>
+            <a href="#" class="social-btn">tw</a>
+        </div>
+    </div>
+    <div class="footer-col">
+        <h4>Products</h4>
+        {% for cat in categories %}
+        <a href="{{ url_for('products', category=cat.id) }}">{{ cat.name }}</a>
+        {% endfor %}
+    </div>
+    <div class="footer-col">
+        <h4>Services</h4>
+        <a href="{{ url_for('services') }}">Book Electrician</a>
+        <a href="{{ url_for('my_bookings') }}">My Bookings</a>
+        <a href="{{ url_for('worker_register') }}">Join as Electrician</a>
+        <a href="{{ url_for('worker_login') }}">Worker Login</a>
+    </div>
+    <div class="footer-col">
+        <h4>Account</h4>
+        <a href="{{ url_for('login') }}">Login</a>
+        <a href="{{ url_for('register') }}">Register</a>
+        <a href="{{ url_for('my_orders') }}">My Orders</a>
+        <a href="{{ url_for('login') }}">Admin Panel</a>
+    </div>
+    <div class="footer-bottom">
+        <span>© 2026 Circuitron – Digital Commerce Hub. All rights reserved.</span>
+        <span>Available in White, Metallic Gold & Off-White colours</span>
+    </div>
+</footer>
+
+<script>
+// ── AUTO SLIDER ──
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.dot');
+let autoTimer = null;
+
+function goToSlide(n) {
+    slides[currentSlide].classList.remove('active');
+    dots[currentSlide].classList.remove('active');
+    currentSlide = (n + slides.length) % slides.length;
+    slides[currentSlide].classList.add('active');
+    dots[currentSlide].classList.add('active');
+    if (window._onSlideChange) window._onSlideChange(currentSlide);
+}
+
+function changeSlide(dir) {
+    goToSlide(currentSlide + dir);
+    resetTimer();
+}
+
+function resetTimer() {
+    clearInterval(autoTimer);
+    autoTimer = setInterval(() => goToSlide(currentSlide + 1), 4500);
+}
+
+// Start auto-slide every 4.5 seconds
+autoTimer = setInterval(() => goToSlide(currentSlide + 1), 4500);
+
+// Strip scroll
+function scrollStrip(dir) {
+    document.getElementById('stripTrack').scrollBy({ left: dir * 320, behavior: 'smooth' });
+}
+
+// ── 3D TILT ON CATEGORY CARDS ──
+document.querySelectorAll('.category-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const cx = rect.width / 2;
+        const cy = rect.height / 2;
+        const rotateX = ((y - cy) / cy) * -10;
+        const rotateY = ((x - cx) / cx) * 10;
+        card.style.transform = `translateY(-10px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.04)`;
+    });
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+    });
+});
+</script>
+{% endblock %}
+

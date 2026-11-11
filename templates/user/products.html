@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}Products – Circuitron{% endblock %}
+{% block content %}
+<nav class="navbar">
+    <a class="nav-brand" href="{{ url_for('home') }}">⚡ Circuitron</a>
+    <div class="nav-links">
+        <a href="{{ url_for('services') }}">Services</a>
+        <a href="{{ url_for('cart') }}" class="cart-link">🛒 Cart</a>
+        {% if session.user_id %}<a href="{{ url_for('logout') }}" class="btn-nav">Logout</a>
+        {% else %}<a href="{{ url_for('login') }}" class="btn-nav">Login</a>{% endif %}
+    </div>
+</nav>
+
+<div class="page-container">
+    <div class="sidebar">
+        <h3>Categories</h3>
+        <a href="{{ url_for('products') }}" class="filter-link {% if not selected %}active{% endif %}">All Products</a>
+        {% for cat in categories %}
+        <a href="{{ url_for('products', category=cat.id) }}" class="filter-link {% if selected == cat.id|string %}active{% endif %}">
+            {{ cat.icon }} {{ cat.name }}
+        </a>
+        {% endfor %}
+    </div>
+    <div class="main-content">
+        <h2>{{ products|length }} Products Found</h2>
+        <div class="products-grid">
+            {% for p in products %}
+            <div class="product-card">
+                <div class="product-img">
+                    {% if p.image and p.image != 'no-image' %}
+                    <img src="{{ get_img(p.image) }}" alt="{{ p.name }}">
+                    {% else %}
+                    <div class="no-img"><span class="no-img-icon">📦</span><span>{{ p.name }}</span></div>
+                    {% endif %}
+                </div>
+                <div class="product-info">
+                    <span class="badge">{{ p.cat_name }}</span>
+                    <h3>{{ p.name }}</h3>
+                    <p class="price">₹{{ "%.2f"|format(p.price) }}</p>
+                    <div class="product-actions">
+                        <a href="{{ url_for('product_detail', pid=p.id) }}" class="btn btn-sm">Details</a>
+                        <a href="{{ url_for('add_to_cart', pid=p.id) }}" class="btn btn-sm btn-primary">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+

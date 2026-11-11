@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Services – Circuitron{% endblock %}
+{% block content %}
+<nav class="navbar">
+    <a class="nav-brand" href="{{ url_for('home') }}">⚡ Circuitron</a>
+    <div class="nav-links">
+        <a href="{{ url_for('products') }}">Products</a>
+        {% if session.user_id %}
+        <a href="{{ url_for('my_bookings') }}">My Bookings</a>
+        <a href="{{ url_for('logout') }}" class="btn-nav">Logout</a>
+        {% else %}<a href="{{ url_for('login') }}" class="btn-nav">Login</a>{% endif %}
+    </div>
+</nav>
+<div class="list-container">
+    <h2>Book an Electrician</h2>
+    <p style="color:#666;margin-bottom:30px">Choose a service and schedule your appointment with a certified professional.</p>
+    <div class="services-grid">
+        {% for s in service_cats %}
+        <div class="service-card-big">
+            <div class="service-icon">{{ s.icon }}</div>
+            <h3>{{ s.name }}</h3>
+            <p>{{ s.description }}</p>
+            <a href="{{ url_for('book_service', sid=s.id) }}" class="btn btn-primary">Book Now</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

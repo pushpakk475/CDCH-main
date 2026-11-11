@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+{% block title %}Electrician Register – Circuitron{% endblock %}
+{% block content %}
+<div class="auth-page">
+    <div class="auth-card">
+        <div class="auth-header">
+            <a href="{{ url_for('home') }}" class="back-btn">← Back</a>
+            <div class="auth-logo">🔧 Worker Portal</div>
+        </div>
+        <h2>Join as Electrician</h2>
+        <p class="auth-desc">Create your electrician account to start taking jobs</p>
+
+        <form method="POST" id="registerForm" enctype="multipart/form-data">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" name="name" required placeholder="Your full name" value="{{ prefilled.get('name', '') }}">
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" required placeholder="you@email.com" value="{{ prefilled.get('email', '') }}">
+            </div>
+            <div class="form-group">
+                <label>Phone</label>
+                <input type="text" name="phone" required placeholder="10-digit mobile number" value="{{ prefilled.get('phone', '') }}">
+            </div>
+            <div class="form-group">
+                <label>Specialization</label>
+                <select name="specialization">
+                    <option>General Electrician</option>
+                    <option>Wiring Specialist</option>
+                    <option>AC & Appliance Repair</option>
+                    <option>Industrial Electrician</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Years of Experience</label>
+                <input type="text" name="experience" placeholder="e.g. 5 years">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <div class="password-container">
+                    <input type="password" name="password" required placeholder="Create a strong password" id="password">
+                    <button type="button" class="password-toggle" onclick="togglePassword('password')">👁️</button>
+                </div>
+            </div>
+
+            <!-- PHOTO UPLOAD SECTION -->
+            <div class="photo-section">
+                <div class="photo-section-label">
+                    <span class="photo-section-icon">🪪</span>
+                    <div>
+                        <strong>Upload Your Current Photo</strong>
+                        <p>Required for identity verification and your profile</p>
+                    </div>
+                </div>
+
+                <div class="photo-box" id="photoBox" onclick="triggerUpload()">
+                    <div class="photo-box-inner" id="photoPlaceholder">
+                        <div class="photo-box-icon">📷</div>
+                        <span class="photo-box-text">Click to upload photo</span>
+                        <span class="photo-box-sub">or drag & drop here</span>
+                    </div>
+                    <img id="photoPreviewImg" src="" alt="Your photo" style="display:none;">
+                </div>
+
+                <div class="photo-actions-row" id="photoActionsRow" style="display:none;">
+                    <button type="button" class="photo-retake-btn" onclick="retakePhoto()">🔄 Change Photo</button>
+                    <span class="photo-ready-badge">✅ Photo ready</span>
+                </div>
+
+                <input type="file" id="photoFileInput" name="profile_photo" accept="image/*" style="display:none;" onchange="handleFileSelect(event)">
+                <input type="hidden" name="photo_data" id="photoDataHidden">
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full" onclick="return validatePhoto()">
+                Submit Registration →
+            </button>
+        </form>
+
+        <p class="auth-link" style="margin-top:18px">Already registered? <a href="{{ url_for('worker_login') }}">Login here</a></p>
+    </div>
+</div>
+
+<script>
+function togglePassword(fieldId) {
+    const field = document.getElementById(fieldId);
+    const toggle = field.nextElementSibling;
+    field.type = field.type === 'password' ? 'text' : 'password';
+    toggle.textContent = field.type === 'password' ? '👁️' : '🙈';
+}
+
+function triggerUpload() {
+    document.getElementById('photoFileInput').click();
+}
+
+function handleFileSelect(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+        alert('Please select an image file.');
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const base64 = e.target.result;
+
+        const img = document.getElementById('photoPreviewImg');
+        img.src = base64;
+        img.style.display = 'block';
+
+        document.getElementById('photoPlaceholder').style.display = 'none';
+        document.getElementById('photoDataHidden').value = base64;
+        document.getElementById('photoActionsRow').style.display = 'flex';
+        document.getElementById('photoBox').classList.add('photo-box--filled');
+    };
+    reader.readAsDataURL(file);
+}
+
+function retakePhoto() {
+    document.getElementById('photoPreviewImg').style.display = 'none';
+    document.getElementById('photoPreviewImg').src = '';
+    document.getElementById('photoPlaceholder').style.display = 'flex';
+    document.getElementById('photoActionsRow').style.display = 'none';
+    document.getElementById('photoDataHidden').value = '';
+    document.getElementById('photoFileInput').value = '';
+    document.getElementById('photoBox').classList.remove('photo-box--filled');
+}
+
+function validatePhoto() {
+    const photoData = document.getElementById('photoDataHidden').value;
+    if (!photoData) {
+        const box = document.getElementById('photoBox');
+        box.classList.add('photo-box--error');
+        box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setTimeout(() => box.classList.remove('photo-box--error'), 2000);
+        return false;
+    }
+    return true;
+}
+
+// Drag and drop support
+const photoBox = document.getElementById('photoBox');
+photoBox.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    photoBox.classList.add('photo-box--dragover');
+});
+photoBox.addEventListener('dragleave', () => {
+    photoBox.classList.remove('photo-box--dragover');
+});
+photoBox.addEventListener('drop', (e) => {
+    e.preventDefault();
+    photoBox.classList.remove('photo-box--dragover');
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith('image/')) {
+        const dt = new DataTransfer();
+        dt.items.add(file);
+        document.getElementById('photoFileInput').files = dt.files;
+        handleFileSelect({ target: { files: dt.files } });
+    }
+});
+</script>
+{% endblock %}

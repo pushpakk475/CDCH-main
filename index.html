@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Circuitron Aura One — The Architecture of Power</title>
+  <meta name="description" content="Experience the Circuitron Aura One: an ultra-premium, Apple-grade smart switch board featuring monolithic crystal glass, 32-bit Cortex zero-cross arc suppression, and 6-layer modular architecture.">
+
+  <!-- Google Fonts: Inter, Outfit, JetBrains Mono for luxury typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/luxury-design.css">
+  <link rel="stylesheet" href="css/scrollytelling.css">
+</head>
+<body>
+
+  <!-- Atmospheric Void Backdrop -->
+  <div class="ambient-void-bg" id="ambientVoidBg"></div>
+
+  <!-- Preloader Screen -->
+  <div class="scrolly-preloader" id="scrollyPreloader">
+    <div class="preloader-spinner"></div>
+    <div class="preloader-text">Loading 4K Silicon Architecture</div>
+    <div class="preloader-progress-bar">
+      <div class="preloader-progress-fill" id="preloaderFill"></div>
+    </div>
+    <span id="preloaderPercent" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-tertiary);">0%</span>
+  </div>
+
+  <!-- Global Top Navigation Bar -->
+  <nav class="global-nav">
+    <div class="nav-inner">
+      <a href="#" class="brand-logo">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M12 3v6m0 6v6M3 12h6m6 0h6"/>
+          <circle cx="12" cy="12" r="3" fill="#2997ff"/>
+        </svg>
+        <span>CIRCUITRON</span>
+        <span class="brand-badge">Aura One</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#scrollyTrack" class="nav-link">Anatomy</a></li>
+        <li><a href="#tactile-lab" class="nav-link">Tactile Lab</a></li>
+        <li><a href="#overview" class="nav-link">Architecture</a></li>
+        <li><a href="#finishes" class="nav-link">Finishes</a></li>
+        <li><a href="#specs" class="nav-link">Specs</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button class="sound-toggle-btn" id="soundToggleBtn" title="Toggle Tactile & Ambient Audio">
+          <span class="sound-wave">
+            <span></span><span></span><span></span>
+          </span>
+          <span class="btn-label">Audio Off</span>
+        </button>
+
+        <button class="btn-primary-sm open-preorder-modal">Pre-Order</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Global Scroll Progress Indicator -->
+  <div class="scroll-progress-container">
+    <div class="scroll-progress-bar" id="globalProgressBar"></div>
+  </div>
+
+  <!-- =========================================================================
+       SCROLLYTELLING VIEWPORT & 240-FRAME CANVAS ENGINE
+       ========================================================================= -->
+  <section class="scrolly-track" id="scrollyTrack">
+    <div class="scrolly-sticky-viewport">
+
+      <!-- High-DPI Ultra-Crisp Canvas Element -->
+      <canvas id="scrollyCanvas" class="scrolly-canvas"></canvas>
+
+      <!-- Left Flank Telemetry HUD -->
+      <div class="floating-hud-flank flank-left" id="floatingHudLeft">
+        <div class="flank-pill">
+          <span class="flank-pill-label">ARC FREQUENCY</span>
+          <span class="flank-pill-val accent-cyan">20,000 Hz</span>
+        </div>
+        <div class="flank-pill">
+          <span class="flank-pill-label">DIELECTRIC SURGE</span>
+          <span class="flank-pill-val accent-gold">4,000 V AC</span>
+        </div>
+        <div class="flank-pill">
+          <span class="flank-pill-label">CONTACT BOUNCE</span>
+          <span class="flank-pill-val accent-green">&lt; 0.2 ms</span>
+        </div>
+      </div>
+
+      <!-- Right Flank Telemetry HUD -->
+      <div class="floating-hud-flank flank-right" id="floatingHudRight">
+        <div class="flank-pill">
+          <span class="flank-pill-label">CHASSIS ALLOY</span>
+          <span class="flank-pill-val">T6061 CNC</span>
+        </div>
+        <div class="flank-pill">
+          <span class="flank-pill-label">SURFACE GLASS</span>
+          <span class="flank-pill-val accent-cyan">9H Diamond 4mm</span>
+        </div>
+        <div class="flank-pill">
+          <span class="flank-pill-label">CYCLE LIFETIME</span>
+          <span class="flank-pill-val accent-gold">100,000+</span>
+        </div>
+      </div>
+
+      <!-- Storytelling HUD & Text Overlay Layer -->
+      <div class="scrolly-story-overlay">
+        <!-- Top Telemetry HUD -->
+        <div class="scrolly-hud-top">
+          <div class="hud-chapter-pill">
+            <span class="pulse-dot"></span>
+            <span id="hudChapterName">ACT I • MONOLITH</span>
+          </div>
+
+          <div class="hud-frame-telemetry">
+            <div>FRAME: <span id="hudFrameNum">001 / 240</span></div>
+            <div>EXPLODED: <span id="hudDisassemblyPercent">0%</span></div>
+          </div>
+        </div>
+
+        <!-- Beat 1: The Monolith (Hero Intro) -->
+        <div class="story-beat beat-hero active" id="beatHero">
+          <div class="hero-badge">AESTHETIC SINGULARITY</div>
+          <h1 class="hero-title" style="margin-bottom: 0.75rem;">The Monolith. Power in Pure Form.</h1>
+          <p class="section-lead" style="margin: 0 auto 0.75rem; font-size: 1.15rem;">
+            Diamond-cut 4.0mm monolithic glass. Zero visible seams. Sub-millisecond solid-state arc suppression.
+          </p>
+          <div class="scroll-hint-indicator">
+            <div class="scroll-mouse-icon"></div>
+            <span>Scroll or use chapters to explode</span>
+          </div>
+        </div>
+
+        <!-- Beat 2: Kinetic Separation -->
+        <div class="story-beat beat-separation" id="beatSeparation">
+          <div class="story-card">
+            <span class="eyebrow">MAGNETIC UNCOUPLING</span>
+            <h2>Precision in every micron.</h2>
+            <p>
+              A zero-tolerance magnetic quick-release chassis separates the diamond-cut glass faceplate from the underlying high-voltage isolation core in fluid motion.
+            </p>
+          </div>
+        </div>
+
+        <!-- Beat 3: Neural Silicon & Arc Suppression -->
+        <div class="story-beat beat-neural" id="beatNeural">
+          <div class="story-card">
+            <span class="eyebrow eyebrow-gold">INTELLIGENT SILICON</span>
+            <h2>20,000 Hz Zero-Cross Arc Suppression.</h2>
+            <p>
+              Powered by a custom 32-bit Cortex-M4 microcontroller. Synchronizing phase switching at the exact zero-voltage threshold eliminates contact degradation forever.
+            </p>
+          </div>
+        </div>
+
+        <!-- Beat 4: Exploded Blueprint & Hotspot Callouts -->
+        <div class="story-beat beat-blueprint" id="beatBlueprint">
+          <div class="story-card">
+            <span class="eyebrow">6-LAYER ANATOMY</span>
+            <h2>Disassembled in Zero Gravity.</h2>
+            <p>
+              Click any glowing reticle to inspect material compositions, electrical ratings, and thermal dissipation matrices.
+            </p>
+          </div>
+        </div>
+
+        <!-- Bottom Timeline Scrubber Navigation Bar -->
+        <div class="scrolly-timeline-scrubber">
+          <button class="scrubber-step active" data-target-progress="0.0">
+            <span>01</span> Monolith
+          </button>
+          <button class="scrubber-step" data-target-progress="0.35">
+            <span>02</span> Uncoupling
+          </button>
+          <button class="scrubber-step" data-target-progress="0.65">
+            <span>03</span> Silicon Core
+          </button>
+          <button class="scrubber-step" data-target-progress="0.95">
+            <span>04</span> Exploded View
+          </button>
+        </div>
+      </div>
+
+      <!-- Exploded View Interactive Reticles & Hotspots (Frames 140-240) -->
+      <div class="reticles-layer" id="reticlesLayer">
+        <!-- Hotspot 1: Glass Faceplate -->
+        <div class="exploded-hotspot" data-part="faceplate" style="left: 17%; top: 52%;" title="Inspect Glass Faceplate">
+          <div class="hotspot-node"></div>
+          <div class="hotspot-tooltip">
+            <div class="tooltip-title">Ion-Strengthened Glass</div>
+            <div class="tooltip-spec">4.0mm Diamond-Cut • 9H Mohs</div>
+          </div>
+        </div>
+
+        <!-- Hotspot 2: Rocker Contacts -->
+        <div class="exploded-hotspot" data-part="rocker" style="left: 31%; top: 38%;" title="Inspect Rocker Contacts">
+          <div class="hotspot-node"></div>
+          <div class="hotspot-tooltip">
+            <div class="tooltip-title">Beryllium-Copper Mechanism</div>
+            <div class="tooltip-spec">100,000 Cycles • 1.2N Actuation</div>
+          </div>
+        </div>
+
+        <!-- Hotspot 3: Neural Logic Board -->
+        <div class="exploded-hotspot" data-part="neuralCore" style="left: 53%; top: 48%;" title="Inspect Neural Board">
+          <div class="hotspot-node"></div>
+          <div class="hotspot-tooltip">
+            <div class="tooltip-title">32-Bit Cortex Logic Core</div>
+            <div class="tooltip-spec">20kHz Zero-Cross • Matter Ready</div>
+          </div>
+        </div>
+
+        <!-- Hotspot 4: Ribbon Distribution Bus -->
+        <div class="exploded-hotspot" data-part="ribbonBus" style="left: 67%; top: 48%;" title="Inspect Ribbon Bus">
+          <div class="hotspot-node"></div>
+          <div class="hotspot-tooltip">
+            <div class="tooltip-title">High-Purity OFC Ribbon</div>
+            <div class="tooltip-spec">32A Peak • 99.99% Copper</div>
+          </div>
+        </div>
+
+        <!-- Hotspot 5: Sub-Chassis -->
+        <div class="exploded-hotspot" data-part="subChassis" style="left: 77%; top: 42%;" title="Inspect Sub-Chassis">
+          <div class="hotspot-node"></div>
+          <div class="hotspot-tooltip">
+            <div class="tooltip-title">CNC T6061 Sub-Chassis</div>
+            <div class="tooltip-spec">EMI Shielding • 167 W/m·K</div>
+          </div>
+        </div>
+
+        <!-- Hotspot 6: Safety Box -->
+        <div class="exploded-hotspot" data-part="safetyBox" style="left: 88%; top: 48%;" title="Inspect Safety Box">
+          <div class="hotspot-node"></div>
+          <div class="hotspot-tooltip">
+            <div class="tooltip-title">UL94-V0 Isolation Box</div>
+            <div class="tooltip-spec">4,000V Dielectric Surge Rated</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Flyout Component Inspector Glass Card -->
+  <div class="inspector-detail-card" id="inspectorDetailCard">
+    <div class="inspector-header">
+      <span class="inspector-tag" id="inspectorTag">SURFACE ARCHITECTURE</span>
+      <button class="inspector-close-btn" id="inspectorCloseBtn" title="Close Inspector">&times;</button>
+    </div>
+    <h3 class="inspector-title" id="inspectorTitle">Ion-Strengthened Glass Faceplate</h3>
+    <p class="inspector-desc" id="inspectorDesc">4.0mm diamond-milled monolithic crystal glass with an oleophobic anti-fingerprint surface.</p>
+    <div class="inspector-stats" id="inspectorStats">
+      <!-- Dynamic stat items inserted via JS -->
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       INTERACTIVE TACTILE SWITCH LAB
+       ========================================================================= -->
+  <section class="switch-lab-section" id="tactile-lab">
+    <div class="container">
+      <div class="bento-header">
+        <span class="eyebrow">PHYSICAL & ACOUSTIC LAB</span>
+        <h2 class="section-title">Experience the Actuation.</h2>
+        <p class="section-lead">
+          Interact with the live switch rockers below. Hear the precision mechanical snap and solid-state relay response while monitoring live electrical telemetry.
+        </p>
+      </div>
+
+      <div class="lab-container">
+        <!-- Physical Switch Device Stage -->
+        <div class="switch-device-stage">
+          <div class="switch-plate-frame">
+            <div class="switch-rocker-row">
+              <!-- Rocker 1 -->
+              <button class="rocker-btn off" id="rocker1" title="Toggle Gang 1 (Main Luminaire)">
+                <div class="rocker-led"></div>
+                <span class="rocker-label">ZONE 01</span>
+              </button>
+
+              <!-- Rocker 2 -->
+              <button class="rocker-btn off" id="rocker2" title="Toggle Gang 2 (Ambient Accent)">
+                <div class="rocker-led"></div>
+                <span class="rocker-label">ZONE 02</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Room Lighting Target Preview -->
+          <div class="room-lighting-preview">
+            <div class="light-state-indicator">
+              <div class="status-dot" id="labStatusDot"></div>
+              <span id="labStatusText" style="font-size: 0.85rem; color: var(--text-primary);">Standby Mode • Ultra-Low 0.06W Draw</span>
+            </div>
+          </div>
+
+          <!-- Scene Mode Selector -->
+          <div class="scene-modes">
+            <button class="scene-chip active" data-scene="cyber">Cyber Neon</button>
+            <button class="scene-chip" data-scene="warm">Warm 2700K</button>
+            <button class="scene-chip" data-scene="studio">Studio 5000K</button>
+            <button class="scene-chip" data-scene="aurora">Midnight Aurora</button>
+          </div>
+        </div>
+
+        <!-- Telemetry & Engineering Insights -->
+        <div>
+          <span class="eyebrow eyebrow-gold">LIVE POWER TELEMETRY</span>
+          <h3 style="font-size: 2rem; font-weight: 700; margin: 0.5rem 0 1rem; letter-spacing: -0.02em;">
+            Sub-millisecond Precision. Zero Contact Bounce.
+          </h3>
+          <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 2rem;">
+            Traditional switches create microscopic electrical sparks during actuation, degrading contacts over time. Aura One's solid-state triac relay detects zero-voltage points within 0.002 seconds, eliminating sparks and doubling the life expectancy of connected fixtures.
+          </p>
+
+          <div class="telemetry-display">
+            <div class="telemetry-item">
+              <span class="telemetry-label">Active Power</span>
+              <span class="telemetry-val" id="labWatts">0.06 W</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">Line Voltage</span>
+              <span class="telemetry-val green" id="labVolts">230.4 V</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">RMS Current</span>
+              <span class="telemetry-val gold" id="labAmps">0.00 A</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       APPLE BENTO GRID: ARCHITECTURE & ENGINEERING
+       ========================================================================= -->
+  <section class="bento-section" id="overview">
+    <div class="container">
+      <div class="bento-header">
+        <span class="eyebrow">ENGINEERING BENCHMARK</span>
+        <h2 class="section-title">Radical simplicity.<br>Extreme capability.</h2>
+        <p class="section-lead">
+          Every component in Aura One has been re-architected from first principles.
+        </p>
+      </div>
+
+      <div class="bento-grid">
+        <!-- Bento 1: Arc-Free Switching (Col 8) -->
+        <div class="bento-card col-span-8">
+          <div class="bento-card-glow"></div>
+          <span class="bento-tag">SOLID-STATE TRIAC MATRIX</span>
+          <h3>Sub-2ms Zero-Cross Arc Suppression</h3>
+          <p>
+            Eliminates high-voltage inrush spikes and inductive kickback on LED drivers, motors, and smart luminaires. Tested across 500,000 cycles with zero contact carbonization.
+          </p>
+          <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(0,0,0,0.5); border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.06);">
+            <svg viewBox="0 0 600 80" style="width: 100%; height: auto; stroke: #2997ff; fill: none; stroke-width: 2;">
+              <path d="M0,40 Q75,0 150,40 T300,40 T450,40 T600,40" />
+              <circle cx="300" cy="40" r="5" fill="#30d158" />
+              <text x="315" y="44" fill="#a1a1a6" font-size="12" font-family="monospace">ZERO-CROSS SWITCH POINT: 0.000V</text>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Bento 2: 100,000 Cycles (Col 4) -->
+        <div class="bento-card col-span-4">
+          <span class="bento-tag">DURABILITY RATING</span>
+          <h3>100,000 Cycles</h3>
+          <p>
+            Beryllium-copper rocker mechanisms designed to endure over 30 years of continuous daily family use without tactile fatigue.
+          </p>
+          <div style="margin-top: 2.5rem; font-size: 3.5rem; font-weight: 800; font-family: var(--font-mono); color: var(--accent-gold);">
+            30+ <span style="font-size: 1.25rem; font-weight: 400; color: var(--text-tertiary);">Years</span>
+          </div>
+        </div>
+
+        <!-- Bento 3: Matter & Thread (Col 4) -->
+        <div class="bento-card col-span-4">
+          <span class="bento-tag">CONNECTIVITY</span>
+          <h3>Matter & Thread Native</h3>
+          <p>
+            Instant, local, and sub-50ms response across Apple Home, Home Assistant, Google Home, and Alexa without proprietary bridge hardware.
+          </p>
+          <div style="display: flex; gap: 12px; margin-top: 2rem; color: var(--accent-cyan); font-weight: 600; font-size: 0.85rem;">
+            <span>• Apple HomeKit</span>
+            <span>• Home Assistant</span>
+            <span>• Matter</span>
+          </div>
+        </div>
+
+        <!-- Bento 4: Thermal Architecture (Col 8) -->
+        <div class="bento-card col-span-8">
+          <div class="bento-card-glow" style="background: radial-gradient(circle, rgba(229,169,60,0.15) 0%, transparent 70%);"></div>
+          <span class="bento-tag">THERMAL DISSIPATION</span>
+          <h3>CNC Aluminum Core & Passive Chimney</h3>
+          <p>
+            Conducts internal heat directly through the structural sub-chassis into an aerodynamic passive convection chimney, keeping internal logic 18°C cooler than conventional plastic switch modules.
+          </p>
+          <div class="telemetry-display" style="margin-top: 1.5rem;">
+            <div class="telemetry-item">
+              <span class="telemetry-label">Peak Temperature</span>
+              <span class="telemetry-val green">32.4°C</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">Standby Draw</span>
+              <span class="telemetry-val">&lt;0.08 W</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">Surge Protection</span>
+              <span class="telemetry-val gold">4,000 V</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       FINISHES & MATERIAL STUDIO
+       ========================================================================= -->
+  <section class="finishes-section" id="finishes">
+    <div class="container">
+      <span class="eyebrow">BESPOKE CRAFTSMANSHIP</span>
+      <h2 class="section-title">Four Architectural Finishes.</h2>
+      <p class="section-lead" style="margin: 0 auto;">
+        Each faceplate is precision-milled from aerospace alloys and ion-strengthened crystal glass to seamlessly integrate into luxury contemporary spaces.
+      </p>
+
+      <div class="finish-grid">
+        <!-- Finish 1 -->
+        <div class="finish-card active" data-finish="obsidian">
+          <div class="finish-swatch swatch-obsidian"></div>
+          <div class="finish-name">Obsidian Black</div>
+          <div class="finish-sub">Monolithic Tempered Crystal</div>
+        </div>
+
+        <!-- Finish 2 -->
+        <div class="finish-card" data-finish="titanium">
+          <div class="finish-swatch swatch-titanium"></div>
+          <div class="finish-name">Titanium Gray</div>
+          <div class="finish-sub">Anodized Aerospace Aluminum</div>
+        </div>
+
+        <!-- Finish 3 -->
+        <div class="finish-card" data-finish="champagne">
+          <div class="finish-swatch swatch-champagne"></div>
+          <div class="finish-name">Champagne Gold</div>
+          <div class="finish-sub">PVD Satin Vapor Finish</div>
+        </div>
+
+        <!-- Finish 4 -->
+        <div class="finish-card" data-finish="ceramic">
+          <div class="finish-swatch swatch-ceramic"></div>
+          <div class="finish-name">Lunar White</div>
+          <div class="finish-sub">Nano-Zirconia Ceramic</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       TECHNICAL SPECIFICATIONS MATRIX
+       ========================================================================= -->
+  <section class="specs-section" id="specs">
+    <div class="container">
+      <div class="bento-header">
+        <span class="eyebrow">FULL SPECIFICATIONS</span>
+        <h2 class="section-title">Engineered to the limit.</h2>
+      </div>
+
+      <div class="specs-table-container">
+        <table class="specs-table">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Specification</th>
+              <th>Circuitron Aura One</th>
+              <th>Industry Standard</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="spec-name">Electrical</td>
+              <td>Input Voltage & Frequency</td>
+              <td class="spec-highlight">100–250V AC, 50/60Hz Universal</td>
+              <td>120V or 230V Region-Locked</td>
+            </tr>
+            <tr>
+              <td class="spec-name">Switching</td>
+              <td>Arc Suppression Mechanism</td>
+              <td class="spec-highlight">20kHz Neural Zero-Crossing Triac</td>
+              <td>Mechanical Air-Gap (Sparking)</td>
+            </tr>
+            <tr>
+              <td class="spec-name">Power Rating</td>
+              <td>Maximum Continuous Load</td>
+              <td class="spec-highlight">16A Resistive / 10A Inductive per Gang</td>
+              <td>6A – 10A Resistive</td>
+            </tr>
+            <tr>
+              <td class="spec-name">Efficiency</td>
+              <td>Parasitic Standby Power</td>
+              <td class="spec-highlight">&lt; 0.08 W (Energy Star Tier 4)</td>
+              <td>0.5W – 1.5W</td>
+            </tr>
+            <tr>
+              <td class="spec-name">Wireless</td>
+              <td>Mesh & Protocols</td>
+              <td class="spec-highlight">Matter over Thread + BLE 5.4 + Zigbee 3.0</td>
+              <td>Wi-Fi 2.4GHz Only</td>
+            </tr>
+            <tr>
+              <td class="spec-name">Materials</td>
+              <td>Faceplate & Sub-Chassis</td>
+              <td class="spec-highlight">4mm Ion Glass + T6061 Aluminum</td>
+              <td>ABS Molded Plastic</td>
+            </tr>
+            <tr>
+              <td class="spec-name">Safety</td>
+              <td>Isolation & Flame Rating</td>
+              <td class="spec-highlight">4,000V Dielectric Surge / UL94-V0</td>
+              <td>1,500V Surge / HB Flame</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       PRE-ORDER & MONOLITH FOOTER
+       ========================================================================= -->
+  <section class="preorder-section" id="preorder">
+    <div class="container">
+      <div class="preorder-box">
+        <span class="eyebrow eyebrow-gold">LIMITED PRODUCTION RUN</span>
+        <h2 class="section-title">Upgrade your architecture.</h2>
+        <p class="section-lead" style="margin: 0 auto;">
+          Experience power reimagined. Includes precision mounting kit, magnetic calibration tool, and 5-year replacement warranty.
+        </p>
+
+        <div class="price-tag">$129 <span>USD / Dual-Gang</span></div>
+        <p style="font-size: 0.85rem; color: var(--text-tertiary);">Worldwide Free Shipping • Delivery Begins Q4 2026</p>
+
+        <button class="cta-button open-preorder-modal">
+          <span>Configure & Reserve</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>© 2026 Circuitron Technologies Inc. All rights reserved. Aura One is a trademark of Circuitron.</div>
+      <div style="display: flex; gap: 1.5rem;">
+        <a href="#" style="color: var(--text-tertiary); text-decoration: none;">Privacy</a>
+        <a href="#" style="color: var(--text-tertiary); text-decoration: none;">Terms of Use</a>
+        <a href="#" style="color: var(--text-tertiary); text-decoration: none;">Engineering Whitepaper</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Sticky Buy Bar -->
+  <div class="sticky-buy-bar" id="stickyBuyBar">
+    <div class="sticky-info">
+      <span class="sticky-title">Circuitron Aura One</span>
+      <span class="sticky-price">$129 USD</span>
+    </div>
+    <button class="btn-primary-sm open-preorder-modal">Pre-Order</button>
+  </div>
+
+  <!-- Pre-Order Customizer Modal Drawer -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 style="font-size: 1.35rem; font-weight: 700; color: var(--text-primary);">Configure Aura One</h3>
+        <button class="modal-close-btn" id="modalCloseBtn">&times;</button>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+        <!-- Gang Count -->
+        <div>
+          <label style="display: block; font-size: 0.75rem; color: var(--text-tertiary); text-transform: uppercase; margin-bottom: 0.4rem;">Gang Configuration</label>
+          <select id="gangSelect" style="width: 100%; background: #1a1c24; border: 1px solid var(--color-border-bright); color: var(--text-primary); padding: 10px 14px; border-radius: var(--radius-sm); outline: none; font-size: 0.9rem;">
+            <option value="1">1-Gang Monolith ($99)</option>
+            <option value="2" selected>2-Gang Dual Rocker ($129)</option>
+            <option value="4">4-Gang Quad Architecture ($189)</option>
+            <option value="6">6-Gang Master Console ($249)</option>
+          </select>
+        </div>
+
+        <!-- Finish Select -->
+        <div>
+          <label style="display: block; font-size: 0.75rem; color: var(--text-tertiary); text-transform: uppercase; margin-bottom: 0.4rem;">Finish & Material</label>
+          <select id="finishSelect" style="width: 100%; background: #1a1c24; border: 1px solid var(--color-border-bright); color: var(--text-primary); padding: 10px 14px; border-radius: var(--radius-sm); outline: none; font-size: 0.9rem;">
+            <option value="obsidian">Obsidian Black (Crystal Glass)</option>
+            <option value="titanium">Titanium Gray (Anodized T6061)</option>
+            <option value="champagne">Champagne Gold (PVD Satin)</option>
+            <option value="ceramic">Lunar White (Zirconia Ceramic)</option>
+          </select>
+        </div>
+
+        <!-- Custom Laser Engraving -->
+        <div>
+          <label style="display: block; font-size: 0.75rem; color: var(--text-tertiary); text-transform: uppercase; margin-bottom: 0.4rem;">Custom Micro-Laser Engraving (Optional)</label>
+          <input type="text" id="engravingInput" maxlength="16" placeholder="e.g. MASTER SUITE" style="width: 100%; background: #1a1c24; border: 1px solid var(--color-border-bright); color: var(--text-primary); padding: 10px 14px; border-radius: var(--radius-sm); outline: none; font-size: 0.9rem;">
+          <div style="margin-top: 6px; font-size: 0.75rem; color: var(--text-tertiary); display: flex; justify-content: space-between;">
+            <span>Laser Preview:</span>
+            <span id="engravingPreview" style="color: var(--accent-cyan); font-family: var(--font-mono);">[ AURA ONE ]</span>
+          </div>
+        </div>
+
+        <!-- Summary & Price -->
+        <div style="background: rgba(0,0,0,0.5); padding: 1rem; border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem;">
+          <div>
+            <div style="font-size: 0.8rem; color: var(--text-tertiary);">Total Due Today</div>
+            <div style="font-size: 0.75rem; color: var(--accent-led-green);">Ships with Lifetime Guarantee</div>
+          </div>
+          <div id="modalPrice" style="font-size: 1.75rem; font-weight: 700; font-family: var(--font-mono); color: var(--text-primary);">$129</div>
+        </div>
+
+        <button class="cta-button" id="checkoutSubmitBtn" style="width: 100%; margin-top: 0.5rem;">
+          Complete Reservation
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/audio-synth.js"></script>
+  <script src="js/frame-loader.js"></script>
+  <script src="js/scrolly-engine.js"></script>
+  <script src="js/component-inspector.js"></script>
+  <script src="js/switch-simulator.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

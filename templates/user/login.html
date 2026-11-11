@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Login – Circuitron{% endblock %}
+{% block content %}
+<div class="auth-page">
+    <div class="auth-card">
+        <div class="auth-header">
+            <a href="{{ url_for('home') }}" class="back-btn">← Back</a>
+            <div class="auth-logo">⚡ Circuitron</div>
+        </div>
+        <h2>Welcome Back</h2>
+        <p class="auth-desc">Sign in to your account to continue</p>
+        <form method="POST">
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" name="email" required placeholder="you@email.com">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <div class="password-container">
+                    <input type="password" name="password" required placeholder="Enter your password" id="password">
+                    <button type="button" class="password-toggle" onclick="togglePassword('password')">👁️</button>
+                </div>
+            </div>
+            <div class="form-options">
+                <a href="{{ url_for('forgot_password') }}" class="forgot-link">Forgot Password?</a>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full" style="margin-top:8px">Sign In →</button>
+        </form>
+        <div class="auth-divider">or</div>
+        <p class="auth-link">Don't have an account? <a href="{{ url_for('register') }}">Create one free</a></p>
+        <p class="auth-link" style="margin-top:8px"><a href="{{ url_for('worker_login') }}">Login as Electrician →</a></p>
+    </div>
+</div>
+
+<script>
+function togglePassword(fieldId) {
+    const field = document.getElementById(fieldId);
+    const toggle = field.nextElementSibling;
+    if (field.type === 'password') {
+        field.type = 'text';
+        toggle.textContent = '🙈';
+    } else {
+        field.type = 'password';
+        toggle.textContent = '👁️';
+    }
+}
+</script>
+{% endblock %}

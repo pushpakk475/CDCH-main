@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block title %}Register – Circuitron{% endblock %}
+{% block content %}
+<div class="auth-page">
+    <div class="auth-card">
+        <div class="auth-header">
+            <a href="{{ url_for('home') }}" class="back-btn">← Back</a>
+            <div class="auth-logo">⚡ Circuitron</div>
+        </div>
+        <h2>Create Account</h2>
+        <p class="auth-desc">Join thousands of customers on Circuitron</p>
+        <form method="POST">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" name="name" required placeholder="Your full name">
+            </div>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" name="email" required placeholder="you@email.com">
+            </div>
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="text" name="phone" placeholder="10-digit mobile number">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <div class="password-container">
+                    <input type="password" name="password" required placeholder="Create a strong password" id="password">
+                    <button type="button" class="password-toggle" onclick="togglePassword('password')">👁️</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Account Type</label>
+                <div class="account-type-options">
+                    <label class="account-type-option">
+                        <input type="radio" name="account_type" value="customer" checked>
+                        <div class="account-type-card">
+                            <div class="account-type-icon">👤</div>
+                            <div class="account-type-info">
+                                <h4>Customer Account</h4>
+                                <p>Shop for electrical products and book services</p>
+                            </div>
+                        </div>
+                    </label>
+                    <label class="account-type-option">
+                        <input type="radio" name="account_type" value="electrician">
+                        <div class="account-type-card">
+                            <div class="account-type-icon">🔧</div>
+                            <div class="account-type-info">
+                                <h4>Join as Electrician</h4>
+                                <p>Provide electrical services and earn money</p>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full" style="margin-top:8px">Create Account →</button>
+        </form>
+        <p class="auth-link" style="margin-top:18px">Already have an account? <a href="{{ url_for('login') }}">Sign in</a></p>
+    </div>
+</div>
+
+<script>
+function togglePassword(fieldId) {
+    const field = document.getElementById(fieldId);
+    const toggle = field.nextElementSibling;
+    if (field.type === 'password') {
+        field.type = 'text';
+        toggle.textContent = '🙈';
+    } else {
+        field.type = 'password';
+        toggle.textContent = '👁️';
+    }
+}
+</script>
+{% endblock %}

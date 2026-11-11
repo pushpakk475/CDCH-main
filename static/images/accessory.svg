@@ -1,0 +1,5 @@
+<svg width="150" height="200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="150" height="200" fill="white" stroke="#6610f2" stroke-width="3" rx="10"/>
+  <rect x="30" y="60" width="90" height="80" fill="#6610f2" rx="5"/>
+  <text x="75" y="170" font-family="Arial" font-size="13" fill="#333" text-anchor="middle">Accessory</text>
+</svg>

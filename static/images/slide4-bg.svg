@@ -1,0 +1,225 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 560" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020c1b"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <linearGradient id="board" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d3b2e"/>
+      <stop offset="100%" stop-color="#072218"/>
+    </linearGradient>
+    <linearGradient id="board3d" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1a5c44"/>
+      <stop offset="100%" stop-color="#0a2e20"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#00ff88" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#00ff88" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0088ff" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#0088ff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blur4"><feGaussianBlur stdDeviation="4"/></filter>
+    <filter id="blur8"><feGaussianBlur stdDeviation="8"/></filter>
+    <filter id="blur12"><feGaussianBlur stdDeviation="12"/></filter>
+    <filter id="gf"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+
+  <!-- Deep space background -->
+  <rect width="1400" height="560" fill="url(#bg)"/>
+
+  <!-- Stars -->
+  <circle cx="50" cy="40" r="1" fill="white" opacity="0.4"/>
+  <circle cx="150" cy="80" r="1.5" fill="white" opacity="0.3"/>
+  <circle cx="300" cy="30" r="1" fill="white" opacity="0.5"/>
+  <circle cx="1100" cy="50" r="1" fill="white" opacity="0.4"/>
+  <circle cx="1300" cy="100" r="1.5" fill="white" opacity="0.3"/>
+  <circle cx="80" cy="500" r="1" fill="white" opacity="0.3"/>
+  <circle cx="1350" cy="480" r="1" fill="white" opacity="0.4"/>
+
+  <!-- PCB BOARD - 3D perspective effect -->
+  <!-- Board shadow -->
+  <rect x="368" y="88" width="680" height="400" rx="8" fill="black" opacity="0.6" filter="url(#blur12)"/>
+  <!-- Board side (3D depth) -->
+  <rect x="370" y="480" width="680" height="18" rx="0" fill="#041a10"/>
+  <rect x="1050" y="85" width="18" height="400" rx="0" fill="#041a10"/>
+  <!-- Board face -->
+  <rect x="370" y="85" width="680" height="395" rx="6" fill="url(#board)"/>
+  <!-- Board surface texture -->
+  <rect x="370" y="85" width="680" height="395" rx="6" fill="url(#board3d)" opacity="0.4"/>
+
+  <!-- PCB grid pattern -->
+  <g stroke="rgba(0,255,136,0.06)" stroke-width="1">
+    <line x1="370" y1="120" x2="1050" y2="120"/>
+    <line x1="370" y1="155" x2="1050" y2="155"/>
+    <line x1="370" y1="190" x2="1050" y2="190"/>
+    <line x1="370" y1="225" x2="1050" y2="225"/>
+    <line x1="370" y1="260" x2="1050" y2="260"/>
+    <line x1="370" y1="295" x2="1050" y2="295"/>
+    <line x1="370" y1="330" x2="1050" y2="330"/>
+    <line x1="370" y1="365" x2="1050" y2="365"/>
+    <line x1="370" y1="400" x2="1050" y2="400"/>
+    <line x1="370" y1="435" x2="1050" y2="435"/>
+    <line x1="405" y1="85" x2="405" y2="480"/>
+    <line x1="440" y1="85" x2="440" y2="480"/>
+    <line x1="475" y1="85" x2="475" y2="480"/>
+    <line x1="510" y1="85" x2="510" y2="480"/>
+    <line x1="545" y1="85" x2="545" y2="480"/>
+    <line x1="580" y1="85" x2="580" y2="480"/>
+    <line x1="615" y1="85" x2="615" y2="480"/>
+    <line x1="650" y1="85" x2="650" y2="480"/>
+    <line x1="685" y1="85" x2="685" y2="480"/>
+    <line x1="720" y1="85" x2="720" y2="480"/>
+    <line x1="755" y1="85" x2="755" y2="480"/>
+    <line x1="790" y1="85" x2="790" y2="480"/>
+    <line x1="825" y1="85" x2="825" y2="480"/>
+    <line x1="860" y1="85" x2="860" y2="480"/>
+    <line x1="895" y1="85" x2="895" y2="480"/>
+    <line x1="930" y1="85" x2="930" y2="480"/>
+    <line x1="965" y1="85" x2="965" y2="480"/>
+    <line x1="1000" y1="85" x2="1000" y2="480"/>
+    <line x1="1035" y1="85" x2="1035" y2="480"/>
+  </g>
+
+  <!-- Glowing circuit traces -->
+  <!-- Main power trace (red) -->
+  <path d="M390 150 L500 150 L500 200 L700 200 L700 150 L900 150 L900 300 L800 300 L800 400 L600 400 L600 300 L450 300 L450 250 L390 250" stroke="rgba(255,50,50,0.15)" stroke-width="6" fill="none"/>
+  <path d="M390 150 L500 150 L500 200 L700 200 L700 150 L900 150 L900 300 L800 300 L800 400 L600 400 L600 300 L450 300 L450 250 L390 250" stroke="rgba(255,80,80,0.5)" stroke-width="2" fill="none" filter="url(#gf)"/>
+
+  <!-- Data trace (green) -->
+  <path d="M420 180 L550 180 L550 350 L750 350 L750 180 L950 180 L950 420 L700 420 L700 350" stroke="rgba(0,255,136,0.12)" stroke-width="5" fill="none"/>
+  <path d="M420 180 L550 180 L550 350 L750 350 L750 180 L950 180 L950 420 L700 420 L700 350" stroke="rgba(0,255,136,0.6)" stroke-width="1.5" fill="none" filter="url(#gf)"/>
+
+  <!-- Signal trace (blue) -->
+  <path d="M480 380 L480 280 L620 280 L620 380 L780 380 L780 280 L920 280 L920 380 L1020 380 L1020 200 L850 200 L850 280" stroke="rgba(0,136,255,0.12)" stroke-width="4" fill="none"/>
+  <path d="M480 380 L480 280 L620 280 L620 380 L780 380 L780 280 L920 280 L920 380 L1020 380 L1020 200 L850 200 L850 280" stroke="rgba(0,136,255,0.55)" stroke-width="1.5" fill="none" filter="url(#gf)"/>
+
+  <!-- MCB Components on board -->
+  <!-- MCB 1 - Red -->
+  <rect x="415" y="130" width="50" height="130" rx="6" fill="#1a0505" stroke="rgba(255,80,80,0.4)" stroke-width="1.5"/>
+  <rect x="420" y="135" width="40" height="120" rx="4" fill="#2a0808"/>
+  <rect x="424" y="140" width="32" height="14" rx="3" fill="#c62828" filter="url(#gf)"/>
+  <rect x="428" y="160" width="24" height="40" rx="4" fill="#1a0505"/>
+  <rect x="431" y="157" width="14" height="20" rx="3" fill="white" opacity="0.9"/>
+  <rect x="424" y="210" width="32" height="8" rx="2" fill="#c62828" opacity="0.6"/>
+  <rect x="424" y="222" width="32" height="8" rx="2" fill="#c62828" opacity="0.6"/>
+  <!-- Glow under MCB1 -->
+  <ellipse cx="440" cy="265" rx="30" ry="8" fill="rgba(255,50,50,0.3)" filter="url(#blur4)"/>
+
+  <!-- MCB 2 - Blue -->
+  <rect x="490" y="130" width="50" height="130" rx="6" fill="#050518" stroke="rgba(80,130,255,0.4)" stroke-width="1.5"/>
+  <rect x="495" y="135" width="40" height="120" rx="4" fill="#080828"/>
+  <rect x="499" y="140" width="32" height="14" rx="3" fill="#1565c0" filter="url(#gf)"/>
+  <rect x="503" y="160" width="24" height="40" rx="4" fill="#050518"/>
+  <rect x="506" y="157" width="14" height="20" rx="3" fill="white" opacity="0.9"/>
+  <rect x="499" y="210" width="32" height="8" rx="2" fill="#1565c0" opacity="0.6"/>
+  <rect x="499" y="222" width="32" height="8" rx="2" fill="#1565c0" opacity="0.6"/>
+  <ellipse cx="515" cy="265" rx="30" ry="8" fill="rgba(50,100,255,0.3)" filter="url(#blur4)"/>
+
+  <!-- MCB 3 - Green -->
+  <rect x="565" y="130" width="50" height="130" rx="6" fill="#051505" stroke="rgba(80,200,80,0.4)" stroke-width="1.5"/>
+  <rect x="570" y="135" width="40" height="120" rx="4" fill="#082808"/>
+  <rect x="574" y="140" width="32" height="14" rx="3" fill="#2e7d32" filter="url(#gf)"/>
+  <rect x="578" y="160" width="24" height="40" rx="4" fill="#051505"/>
+  <rect x="581" y="157" width="14" height="20" rx="3" fill="white" opacity="0.9"/>
+  <rect x="574" y="210" width="32" height="8" rx="2" fill="#2e7d32" opacity="0.6"/>
+  <rect x="574" y="222" width="32" height="8" rx="2" fill="#2e7d32" opacity="0.6"/>
+  <ellipse cx="590" cy="265" rx="30" ry="8" fill="rgba(50,200,50,0.3)" filter="url(#blur4)"/>
+
+  <!-- RCCB large -->
+  <rect x="650" y="120" width="80" height="150" rx="8" fill="#0a0a1a" stroke="rgba(150,200,255,0.35)" stroke-width="2"/>
+  <rect x="656" y="126" width="68" height="138" rx="6" fill="#0d0d22"/>
+  <rect x="660" y="132" width="60" height="18" rx="4" fill="#1a237e" filter="url(#gf)"/>
+  <text x="690" y="145" font-family="Arial" font-size="10" fill="#90caf9" text-anchor="middle" font-weight="bold">RCCB</text>
+  <rect x="664" y="156" width="52" height="50" rx="4" fill="#0a0a1a"/>
+  <rect x="670" y="153" width="20" height="28" rx="3" fill="white" opacity="0.85"/>
+  <circle cx="690" cy="222" r="14" fill="#c62828" stroke="rgba(255,100,100,0.5)" stroke-width="1.5" filter="url(#gf)"/>
+  <text x="690" y="226" font-family="Arial" font-size="8" fill="white" text-anchor="middle" font-weight="bold">TEST</text>
+  <ellipse cx="690" cy="272" rx="45" ry="10" fill="rgba(100,150,255,0.25)" filter="url(#blur4)"/>
+
+  <!-- Capacitors -->
+  <ellipse cx="800" cy="160" rx="18" ry="28" fill="#1a1a00" stroke="rgba(255,220,0,0.5)" stroke-width="1.5"/>
+  <ellipse cx="800" cy="160" rx="14" ry="24" fill="#2a2a00"/>
+  <line x1="800" y1="132" x2="800" y2="120" stroke="rgba(255,220,0,0.7)" stroke-width="2"/>
+  <line x1="800" y1="188" x2="800" y2="200" stroke="rgba(255,220,0,0.7)" stroke-width="2"/>
+  <ellipse cx="800" cy="160" rx="18" ry="28" fill="rgba(255,220,0,0.08)" filter="url(#blur4)"/>
+
+  <ellipse cx="840" cy="160" rx="18" ry="28" fill="#1a1a00" stroke="rgba(255,220,0,0.5)" stroke-width="1.5"/>
+  <ellipse cx="840" cy="160" rx="14" ry="24" fill="#2a2a00"/>
+  <line x1="840" y1="132" x2="840" y2="120" stroke="rgba(255,220,0,0.7)" stroke-width="2"/>
+  <line x1="840" y1="188" x2="840" y2="200" stroke="rgba(255,220,0,0.7)" stroke-width="2"/>
+
+  <!-- IC Chip -->
+  <rect x="880" y="200" width="80" height="60" rx="4" fill="#111" stroke="rgba(0,255,136,0.4)" stroke-width="1.5"/>
+  <rect x="885" y="205" width="70" height="50" rx="3" fill="#1a1a1a"/>
+  <text x="920" y="232" font-family="Arial" font-size="9" fill="rgba(0,255,136,0.8)" text-anchor="middle">MCU</text>
+  <text x="920" y="244" font-family="Arial" font-size="7" fill="rgba(0,255,136,0.5)" text-anchor="middle">32A-PRO</text>
+  <!-- IC pins -->
+  <g stroke="rgba(0,255,136,0.5)" stroke-width="1.5">
+    <line x1="880" y1="215" x2="870" y2="215"/><line x1="880" y1="225" x2="870" y2="225"/>
+    <line x1="880" y1="235" x2="870" y2="235"/><line x1="880" y1="245" x2="870" y2="245"/>
+    <line x1="960" y1="215" x2="970" y2="215"/><line x1="960" y1="225" x2="970" y2="225"/>
+    <line x1="960" y1="235" x2="970" y2="235"/><line x1="960" y1="245" x2="970" y2="245"/>
+    <line x1="900" y1="200" x2="900" y2="190"/><line x1="920" y1="200" x2="920" y2="190"/>
+    <line x1="940" y1="200" x2="940" y2="190"/><line x1="900" y1="260" x2="900" y2="270"/>
+    <line x1="920" y1="260" x2="920" y2="270"/><line x1="940" y1="260" x2="940" y2="270"/>
+  </g>
+  <ellipse cx="920" cy="230" rx="50" ry="20" fill="rgba(0,255,136,0.06)" filter="url(#blur8)"/>
+
+  <!-- LED indicators on board -->
+  <circle cx="430" cy="310" r="6" fill="#ff3333" filter="url(#gf)"/>
+  <circle cx="430" cy="310" r="10" fill="rgba(255,50,50,0.2)" filter="url(#blur4)"/>
+  <circle cx="460" cy="310" r="6" fill="#33ff33" filter="url(#gf)"/>
+  <circle cx="460" cy="310" r="10" fill="rgba(50,255,50,0.2)" filter="url(#blur4)"/>
+  <circle cx="490" cy="310" r="6" fill="#3333ff" filter="url(#gf)"/>
+  <circle cx="490" cy="310" r="10" fill="rgba(50,50,255,0.2)" filter="url(#blur4)"/>
+  <circle cx="520" cy="310" r="6" fill="#ffff33" filter="url(#gf)"/>
+  <circle cx="520" cy="310" r="10" fill="rgba(255,255,50,0.2)" filter="url(#blur4)"/>
+
+  <!-- Connector terminals -->
+  <rect x="390" y="400" width="600" height="30" rx="4" fill="#0a0a0a" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  <g fill="#1a1a1a" stroke="rgba(255,200,0,0.4)" stroke-width="1">
+    <rect x="400" y="405" width="18" height="20" rx="2"/>
+    <rect x="425" y="405" width="18" height="20" rx="2"/>
+    <rect x="450" y="405" width="18" height="20" rx="2"/>
+    <rect x="475" y="405" width="18" height="20" rx="2"/>
+    <rect x="500" y="405" width="18" height="20" rx="2"/>
+    <rect x="525" y="405" width="18" height="20" rx="2"/>
+    <rect x="550" y="405" width="18" height="20" rx="2"/>
+    <rect x="575" y="405" width="18" height="20" rx="2"/>
+    <rect x="600" y="405" width="18" height="20" rx="2"/>
+    <rect x="625" y="405" width="18" height="20" rx="2"/>
+    <rect x="650" y="405" width="18" height="20" rx="2"/>
+    <rect x="675" y="405" width="18" height="20" rx="2"/>
+    <rect x="700" y="405" width="18" height="20" rx="2"/>
+    <rect x="725" y="405" width="18" height="20" rx="2"/>
+    <rect x="750" y="405" width="18" height="20" rx="2"/>
+    <rect x="775" y="405" width="18" height="20" rx="2"/>
+    <rect x="800" y="405" width="18" height="20" rx="2"/>
+    <rect x="825" y="405" width="18" height="20" rx="2"/>
+    <rect x="850" y="405" width="18" height="20" rx="2"/>
+    <rect x="875" y="405" width="18" height="20" rx="2"/>
+    <rect x="900" y="405" width="18" height="20" rx="2"/>
+    <rect x="925" y="405" width="18" height="20" rx="2"/>
+    <rect x="950" y="405" width="18" height="20" rx="2"/>
+    <rect x="975" y="405" width="18" height="20" rx="2"/>
+  </g>
+
+  <!-- Ambient glow effects -->
+  <ellipse cx="690" cy="280" rx="200" ry="150" fill="url(#glow1)" filter="url(#blur12)"/>
+  <ellipse cx="500" cy="200" rx="150" ry="100" fill="url(#glow2)" filter="url(#blur12)"/>
+
+  <!-- Floating particles outside board -->
+  <circle cx="200" cy="150" r="3" fill="rgba(0,255,136,0.6)" filter="url(#gf)"/>
+  <circle cx="250" cy="300" r="2" fill="rgba(255,80,80,0.6)" filter="url(#gf)"/>
+  <circle cx="180" cy="420" r="3" fill="rgba(80,130,255,0.6)" filter="url(#gf)"/>
+  <circle cx="1150" cy="180" r="3" fill="rgba(0,255,136,0.5)" filter="url(#gf)"/>
+  <circle cx="1200" cy="350" r="2" fill="rgba(255,220,0,0.6)" filter="url(#gf)"/>
+  <circle cx="1250" cy="250" r="3" fill="rgba(255,80,80,0.5)" filter="url(#gf)"/>
+
+  <!-- Connecting wires outside board -->
+  <path d="M370 200 L200 200 L200 350 L100 350" stroke="rgba(255,80,80,0.3)" stroke-width="2" fill="none" stroke-dasharray="8 4"/>
+  <path d="M370 300 L250 300 L250 450 L150 450" stroke="rgba(0,255,136,0.3)" stroke-width="2" fill="none" stroke-dasharray="8 4"/>
+  <path d="M1050 250 L1200 250 L1200 150 L1350 150" stroke="rgba(80,130,255,0.3)" stroke-width="2" fill="none" stroke-dasharray="8 4"/>
+</svg>

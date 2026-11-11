@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Manage Products – Circuitron{% endblock %}
+{% block content %}
+<nav class="navbar navbar-admin">
+    <a class="nav-brand" href="{{ url_for('admin_dashboard') }}">⚡ Admin Panel</a>
+    <div class="nav-links">
+        <a href="{{ url_for('admin_orders') }}">Orders</a>
+        <a href="{{ url_for('admin_workers') }}">Workers</a>
+        <a href="{{ url_for('admin_bookings') }}">Bookings</a>
+        <a href="{{ url_for('logout') }}" class="btn-nav">Logout</a>
+    </div>
+</nav>
+<div class="list-container">
+    <h2>Manage Products</h2>
+    <form method="POST" class="inline-form">
+        <input type="text" name="name" required placeholder="Product name">
+        <input type="text" name="description" placeholder="Description">
+        <input type="number" name="price" step="0.01" required placeholder="Price">
+        <input type="number" name="stock" required placeholder="Stock">
+        <select name="category_id">
+            {% for cat in categories %}<option value="{{ cat.id }}">{{ cat.name }}</option>{% endfor %}
+        </select>
+        <button type="submit" class="btn btn-primary">Add Product</button>
+    </form>
+
+    <table class="data-table" style="margin-top:30px">
+        <thead><tr><th>#</th><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Action</th></tr></thead>
+        <tbody>
+        {% for p in products %}
+        <tr>
+            <td>{{ p.id }}</td>
+            <td>{{ p.name }}</td>
+            <td>{{ p.cat_name }}</td>
+            <td>₹{{ "%.2f"|format(p.price) }}</td>
+            <td>{{ p.stock }}</td>
+            <td><a href="{{ url_for('admin_delete_product', pid=p.id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Delete?')">Delete</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

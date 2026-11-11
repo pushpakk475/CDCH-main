@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+{% block title %}Photo Verification – Circuitron{% endblock %}
+{% block content %}
+<div class="auth-page">
+    <div class="auth-card">
+        <div class="auth-header">
+            <a href="{{ url_for('worker_login') }}" class="back-btn">← Back to Login</a>
+            <div class="auth-logo">🔧 Worker Portal</div>
+        </div>
+        <h2>Photo Verification Required</h2>
+        <p class="auth-desc">Hello {{ worker_name }}! Please capture a photo for attendance verification</p>
+        
+        <div class="login-photo-notice">
+            <h4>⚠️ Attendance Requirement</h4>
+            <p>Electricians must capture a photo at each login for attendance tracking and verification purposes.</p>
+        </div>
+        
+        <div class="photo-upload-container">
+            <div class="photo-preview" id="photoPreview">
+                <div class="photo-placeholder" id="photoPlaceholder">
+                    <div class="photo-placeholder-icon">📸</div>
+                    <span>No photo taken</span>
+                </div>
+                <img id="capturedPhoto" style="display: none;">
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <button id="startCamera" class="photo-upload-btn">
+                    <span>🎥 Start Camera</span>
+                </button>
+                <button id="capturePhoto" class="photo-upload-btn" style="display: none; background: var(--success);">
+                    <span>📸 Capture Photo</span>
+                </button>
+                <button id="retakePhoto" class="photo-upload-btn" style="display: none; background: var(--warning);">
+                    <span>🔄 Retake</span>
+                </button>
+            </div>
+            
+            <form method="POST" id="photoForm">
+                <input type="hidden" name="photo_data" id="photoData">
+                <button type="submit" id="submitPhoto" class="btn btn-primary btn-full" style="display: none;">
+                    Submit Photo & Continue Login →
+                </button>
+            </form>
+            
+            <p class="photo-instruction">Make sure your face is clearly visible in good lighting</p>
+        </div>
+    </div>
+</div>
+
+<script>
+let stream = null;
+let photoData = null;
+
+const photoPreview = document.getElementById('photoPreview');
+const photoPlaceholder = document.getElementById('photoPlaceholder');
+const capturedPhoto = document.getElementById('capturedPhoto');
+const startCameraBtn = document.getElementById('startCamera');
+const capturePhotoBtn = document.getElementById('capturePhoto');
+const retakePhotoBtn = document.getElementById('retakePhoto');
+const submitPhotoBtn = document.getElementById('submitPhoto');
+const photoForm = document.getElementById('photoForm');
+const photoDataInput = document.getElementById('photoData');
+
+startCameraBtn.addEventListener('click', async () => {
+    try {
+        stream = await navigator.mediaDevices.getUserMedia({ 
+            video: { 
+                facingMode: 'user',
+                width: { ideal: 640 },
+                height: { ideal: 480 }
+            },
+            audio: false 
+        });
+        
+        // Create a video element to display the camera feed
+        const video = document.createElement('video');
+        video.srcObject = stream;
+        video.autoplay = true;
+        video.playsInline = true;
+        
+        // Replace placeholder with video
+        photoPlaceholder.style.display = 'none';
+        photoPreview.appendChild(video);
+        
+        // Show capture button, hide start button
+        startCameraBtn.style.display = 'none';
+        capturePhotoBtn.style.display = 'inline-flex';
+        
+        // Store video element for capture
+        window.captureVideo = video;
+        
+    } catch (error) {
+        alert('Camera access denied or not available. You can use file upload instead.');
+        enableFileUpload();
+    }
+});
+
+capturePhotoBtn.addEventListener('click', () => {
+    const video = window.captureVideo;
+    if (!video) return;
+    
+    // Create canvas to capture photo
+    const canvas = document.createElement('canvas');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    const ctx = canvas.getContext('2d');
+    
+    // Draw current video frame to canvas
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    
+    // Convert to data URL
+    photoData = canvas.toDataURL('image/jpeg', 0.8);
+    
+    // Display captured photo
+    capturedPhoto.src = photoData;
+    capturedPhoto.style.display = 'block';
+    
+    // Remove video element
+    video.remove();
+    
+    // Stop camera stream
+    if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+    }
+    
+    // Show retake and submit buttons
+    capturePhotoBtn.style.display = 'none';
+    retakePhotoBtn.style.display = 'inline-flex';
+    submitPhotoBtn.style.display = 'block';
+});
+
+retakePhotoBtn.addEventListener('click', () => {
+    // Reset to camera view
+    capturedPhoto.style.display = 'none';
+    photoData = null;
+    
+    // Show camera start button
+    retakePhotoBtn.style.display = 'none';
+    submitPhotoBtn.style.display = 'none';
+    startCameraBtn.style.display = 'inline-flex';
+    photoPlaceholder.style.display = 'flex';
+});
+
+photoForm.addEventListener('submit', (e) => {
+    if (!photoData) {
+        e.preventDefault();
+        alert('Please capture a photo first');
+        return;
+    }
+    photoDataInput.value = photoData;
+});
+
+function enableFileUpload() {
+    // Fallback to file upload if camera fails
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = 'image/*';
+    fileInput.capture = 'user';
+    fileInput.style.display = 'none';
+    
+    fileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                photoData = event.target.result;
+                capturedPhoto.src = photoData;
+                capturedPhoto.style.display = 'block';
+                photoPlaceholder.style.display = 'none';
+                
+                startCameraBtn.style.display = 'none';
+                capturePhotoBtn.style.display = 'none';
+                retakePhotoBtn.style.display = 'inline-flex';
+                submitPhotoBtn.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+    
+    startCameraBtn.textContent = '📁 Upload Photo';
+    startCameraBtn.onclick = () => fileInput.click();
+}
+</script>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Workers – Circuitron Admin{% endblock %}
+{% block content %}
+<nav class="navbar navbar-admin">
+    <a class="nav-brand" href="{{ url_for('admin_dashboard') }}">⚡ Admin Panel</a>
+    <div class="nav-links">
+        <a href="{{ url_for('admin_products') }}">Products</a>
+        <a href="{{ url_for('admin_orders') }}">Orders</a>
+        <a href="{{ url_for('admin_bookings') }}">Bookings</a>
+        <a href="{{ url_for('logout') }}" class="btn-nav">Logout</a>
+    </div>
+</nav>
+<div class="list-container">
+    <h2>Electrician Management</h2>
+    <table class="data-table">
+        <thead><tr><th>#</th><th>Name</th><th>Email</th><th>Phone</th><th>Specialization</th><th>Experience</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody>
+        {% for w in workers %}
+        <tr>
+            <td>{{ w.id }}</td>
+            <td>{{ w.name }}</td>
+            <td>{{ w.email }}</td>
+            <td>{{ w.phone }}</td>
+            <td>{{ w.specialization }}</td>
+            <td>{{ w.experience }}</td>
+            <td><span class="status-badge status-{{ w.status }}">{{ w.status }}</span></td>
+            <td>
+                {% if w.status == 'pending' %}
+                <a href="{{ url_for('approve_worker', wid=w.id) }}" class="btn btn-sm btn-primary">Approve</a>
+                <a href="{{ url_for('reject_worker', wid=w.id) }}" class="btn btn-sm btn-danger">Reject</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

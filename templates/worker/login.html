@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% block title %}Electrician Login – Circuitron{% endblock %}
+{% block content %}
+<div class="auth-page">
+    <div class="auth-card">
+        <div class="auth-header">
+            <a href="{{ url_for('home') }}" class="back-btn">← Back</a>
+            <div class="auth-logo">🔧 Worker Portal</div>
+        </div>
+        <h2>Electrician Login</h2>
+        <p class="auth-desc">Sign in to access your dashboard</p>
+
+        <form method="POST" id="loginForm" enctype="multipart/form-data">
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" required placeholder="you@email.com">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <div class="password-container">
+                    <input type="password" name="password" required placeholder="••••••••" id="password">
+                    <button type="button" class="password-toggle" onclick="togglePassword('password')">👁️</button>
+                </div>
+            </div>
+            <div class="form-options">
+                <a href="{{ url_for('forgot_password') }}" class="forgot-link">Forgot Password?</a>
+            </div>
+
+            <!-- PHOTO UPLOAD SECTION -->
+            <div class="photo-section">
+                <div class="photo-section-label">
+                    <span class="photo-section-icon">📸</span>
+                    <div>
+                        <strong>Upload Your Current Photo</strong>
+                        <p>Required for identity verification before login</p>
+                    </div>
+                </div>
+
+                <div class="photo-box" id="photoBox" onclick="triggerUpload()">
+                    <div class="photo-box-inner" id="photoPlaceholder">
+                        <div class="photo-box-icon">📷</div>
+                        <span class="photo-box-text">Click to upload photo</span>
+                        <span class="photo-box-sub">or drag & drop here</span>
+                    </div>
+                    <img id="photoPreviewImg" src="" alt="Your photo" style="display:none;">
+                </div>
+
+                <div class="photo-actions-row" id="photoActionsRow" style="display:none;">
+                    <button type="button" class="photo-retake-btn" onclick="retakePhoto()">🔄 Change Photo</button>
+                    <span class="photo-ready-badge">✅ Photo ready</span>
+                </div>
+
+                <input type="file" id="photoFileInput" name="login_photo" accept="image/*" style="display:none;" onchange="handleFileSelect(event)">
+                <input type="hidden" name="photo_data" id="photoDataHidden">
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full" id="submitBtn" onclick="return validatePhoto()">
+                Login →
+            </button>
+        </form>
+
+        <p class="auth-link" style="margin-top:18px">New electrician? <a href="{{ url_for('worker_register') }}">Register here</a></p>
+    </div>
+</div>
+
+<script>
+function togglePassword(fieldId) {
+    const field = document.getElementById(fieldId);
+    const toggle = field.nextElementSibling;
+    field.type = field.type === 'password' ? 'text' : 'password';
+    toggle.textContent = field.type === 'password' ? '👁️' : '🙈';
+}
+
+function triggerUpload() {
+    document.getElementById('photoFileInput').click();
+}
+
+function handleFileSelect(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    // Validate it's an image
+    if (!file.type.startsWith('image/')) {
+        alert('Please select an image file.');
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const base64 = e.target.result;
+
+        // Show preview
+        const img = document.getElementById('photoPreviewImg');
+        img.src = base64;
+        img.style.display = 'block';
+
+        // Hide placeholder
+        document.getElementById('photoPlaceholder').style.display = 'none';
+
+        // Store base64 in hidden field
+        document.getElementById('photoDataHidden').value = base64;
+
+        // Show action row
+        document.getElementById('photoActionsRow').style.display = 'flex';
+
+        // Style the photo box as filled
+        document.getElementById('photoBox').classList.add('photo-box--filled');
+    };
+    reader.readAsDataURL(file);
+}
+
+function retakePhoto() {
+    // Reset everything
+    document.getElementById('photoPreviewImg').style.display = 'none';
+    document.getElementById('photoPreviewImg').src = '';
+    document.getElementById('photoPlaceholder').style.display = 'flex';
+    document.getElementById('photoActionsRow').style.display = 'none';
+    document.getElementById('photoDataHidden').value = '';
+    document.getElementById('photoFileInput').value = '';
+    document.getElementById('photoBox').classList.remove('photo-box--filled');
+}
+
+function validatePhoto() {
+    const photoData = document.getElementById('photoDataHidden').value;
+    if (!photoData) {
+        // Highlight the photo box
+        const box = document.getElementById('photoBox');
+        box.classList.add('photo-box--error');
+        box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setTimeout(() => box.classList.remove('photo-box--error'), 2000);
+        return false;
+    }
+    return true;
+}
+
+// Drag and drop support
+const photoBox = document.getElementById('photoBox');
+photoBox.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    photoBox.classList.add('photo-box--dragover');
+});
+photoBox.addEventListener('dragleave', () => {
+    photoBox.classList.remove('photo-box--dragover');
+});
+photoBox.addEventListener('drop', (e) => {
+    e.preventDefault();
+    photoBox.classList.remove('photo-box--dragover');
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith('image/')) {
+        // Create a fake event
+        const dt = new DataTransfer();
+        dt.items.add(file);
+        document.getElementById('photoFileInput').files = dt.files;
+        handleFileSelect({ target: { files: dt.files } });
+    }
+});
+</script>
+{% endblock %}

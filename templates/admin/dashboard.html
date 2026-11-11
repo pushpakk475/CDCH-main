@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Admin Dashboard – Circuitron{% endblock %}
+{% block content %}
+<nav class="navbar navbar-admin">
+    <div class="nav-brand">⚡ Admin Panel</div>
+    <div class="nav-links">
+        <a href="{{ url_for('admin_products') }}">Products</a>
+        <a href="{{ url_for('admin_orders') }}">Orders</a>
+        <a href="{{ url_for('admin_workers') }}">Workers</a>
+        <a href="{{ url_for('admin_worker_photos') }}">Worker Photos</a>
+        <a href="{{ url_for('admin_bookings') }}">Bookings</a>
+        <a href="{{ url_for('logout') }}" class="btn-nav">Logout</a>
+    </div>
+</nav>
+<div class="list-container">
+    <h2>Dashboard Overview</h2>
+    <div class="stats-grid">
+        <div class="stat-card"><div class="stat-icon">👥</div><div class="stat-num">{{ stats.users }}</div><div class="stat-label">Total Users</div></div>
+        <div class="stat-card"><div class="stat-icon">📦</div><div class="stat-num">{{ stats.orders }}</div><div class="stat-label">Total Orders</div></div>
+        <div class="stat-card"><div class="stat-icon">🔧</div><div class="stat-num">{{ stats.bookings }}</div><div class="stat-label">Service Bookings</div></div>
+        <div class="stat-card"><div class="stat-icon">⚡</div><div class="stat-num">{{ stats.workers }}</div><div class="stat-label">Active Electricians</div></div>
+        <div class="stat-card highlight"><div class="stat-icon">💰</div><div class="stat-num">₹{{ "%.0f"|format(stats.revenue) }}</div><div class="stat-label">Total Revenue</div></div>
+        <div class="stat-card warn"><div class="stat-icon">⏳</div><div class="stat-num">{{ stats.pending_workers }}</div><div class="stat-label">Pending Approvals</div></div>
+    </div>
+
+    <h2 style="margin-top:40px">Recent Orders</h2>
+    <table class="data-table">
+        <thead><tr><th>#</th><th>Customer</th><th>Total</th><th>Payment</th><th>Status</th><th>Date</th></tr></thead>
+        <tbody>
+        {% for o in recent_orders %}
+        <tr>
+            <td>#{{ o.id }}</td>
+            <td>{{ o.name }}</td>
+            <td>₹{{ "%.2f"|format(o.total) }}</td>
+            <td>{{ o.payment_method|upper }}</td>
+            <td><span class="status-badge status-{{ o.status }}">{{ o.status }}</span></td>
+            <td>{{ o.created_at[:10] }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
